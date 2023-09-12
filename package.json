@@ -3,8 +3,8 @@
   "displayName": "Switch",
   "description": "Quickly and easily switch between source and test file.",
   "publisher": "fxlipe115",
-  "logo": "images/logo.png",
-  "version": "0.0.8",
+  "icon": "images/logo.png",
+  "version": "0.0.9",
   "engines": {
     "vscode": "^1.81.0"
   },
