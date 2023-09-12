@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<!--Background-->
+  <rect width="100%" height="100%" fill="#292929"/>
+<!--Switch Base-->
+  <rect x="40" y="80" width="120" height="40" rx="20" fill="#555"/>
+<!--"Source" Rectangle-->
+  <rect x="40" y="80" width="60" height="40" rx="20" fill="#00BFFF"/>
+<!--"Test" Rectangle-->
+  <rect x="100" y="80" width="60" height="40" rx="20" fill="#FF6347"/>
+<!--Switch Handle-->
+  <rect x="95" y="75" width="10" height="50" rx="5" fill="#ddd"/>
+<!--Text (Optional)-->
+  <text x="70" y="145" fill="#ddd" font-size="20" font-family="Arial">Switch</text>
+</svg>

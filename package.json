@@ -1,0 +1,123 @@
+{
+  "name": "switch",
+  "displayName": "Switch",
+  "description": "Quickly and easily switch between source and test file.",
+  "publisher": "fxlipe115",
+  "logo": "images/logo.png",
+  "version": "0.0.8",
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fxlipe115/switch-vscode"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.switch",
+        "title": "Switch between source and test",
+        "category": "Switch"
+      },
+      {
+        "command": "extension.openSourceAndTest",
+        "title": "Open Source and Test Side by Side",
+        "category": "Switch"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.switch",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.openSourceAndTest",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "extension.switch",
+          "group": "1_modification"
+        },
+        {
+          "command": "extension.openSourceAndTest",
+          "group": "1_modification"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Switch Settings",
+      "properties": {
+        "switch.sourcePath": {
+          "type": "string",
+          "default": "src/",
+          "description": "The path to the source files.",
+          "scope": "resource"
+        },
+        "switch.testPath": {
+          "type": "string",
+          "default": "test/",
+          "description": "The path to the test files.",
+          "scope": "resource"
+        },
+        "switch.sourceFilePattern": {
+          "type": "string",
+          "default": "{baseName}.ts",
+          "description": "The extension of the source files.",
+          "scope": "resource"
+        },
+        "switch.testFilePattern": {
+          "type": "string",
+          "default": "{baseName}.spec.ts",
+          "description": "The extension of the test files.",
+          "scope": "resource"
+        },
+        "switch.testFileTemplate": {
+          "type": "array",
+          "description": "The template for new test files.",
+          "default": [
+            "import { expect } from 'chai';",
+            "import { describe, it } from 'mocha';",
+            "",
+            "describe('${filename}', function () {",
+            "  it('Should pass', () => {",
+            "    expect(true).to.be.true;",
+            "  });",
+            "});"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "scope": "resource"
+        }
+      }
+    }    
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.81.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
