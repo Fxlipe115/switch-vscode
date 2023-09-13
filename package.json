@@ -4,7 +4,7 @@
   "description": "Quickly and easily switch between source and test file.",
   "publisher": "fxlipe115",
   "icon": "images/logo.png",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "engines": {
     "vscode": "^1.81.0"
   },
