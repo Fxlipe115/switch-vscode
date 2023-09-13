@@ -22,12 +22,14 @@
       {
         "command": "extension.switch",
         "title": "Switch between source and test",
-        "category": "Switch"
+        "category": "Switch",
+        "icon": "$(file-code)"
       },
       {
         "command": "extension.openSourceAndTest",
         "title": "Open Source and Test Side by Side",
-        "category": "Switch"
+        "category": "Switch",
+        "icon": "$(book)"
       }
     ],
     "menus": {
@@ -44,11 +46,21 @@
       "editor/context": [
         {
           "command": "extension.switch",
-          "group": "1_modification"
+          "group": "navigation"
         },
         {
           "command": "extension.openSourceAndTest",
-          "group": "1_modification"
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "extension.switch",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.openSourceAndTest",
+          "group": "navigation"
         }
       ]
     },
