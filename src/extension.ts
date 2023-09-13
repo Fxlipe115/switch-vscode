@@ -155,8 +155,6 @@ function getCompanionFilePath(editor: vscode.TextEditor) {
 		} else {
 			vscode.window.showErrorMessage('Failed to extract baseName from file name.');
 		}
-	} else {
-		vscode.window.showErrorMessage('File name does not match source or test pattern.');
 	}
 								
 	// Construct the new file path by joining the parts
@@ -166,7 +164,7 @@ function getCompanionFilePath(editor: vscode.TextEditor) {
 	console.log('newFilePath: ', newFilePath);
 
 	console.log('New File Path:', newFilePath.fsPath);
-	return { newFilePath, isSourceFile };
+	return { newFilePath, isSourceFile, isTestFile };
 }
 
 async function extensionSwitch(fileUri: vscode.Uri) {
@@ -267,9 +265,31 @@ async function extensionOpenSourceAndTest(fileUri: vscode.Uri) {
 	}
 }
 
+function updateIsValidFile() {
+	// Check if the focused editor's file name matches the source or test pattern
+	const editor = vscode.window.activeTextEditor;
+	if (editor) {
+		const companionFile = getCompanionFilePath(editor);
+		if (companionFile !== undefined) {
+			const { isSourceFile, isTestFile } = companionFile;
+			vscode.commands.executeCommand('setContext', 'extension.isValidFile', isSourceFile || isTestFile);
+		} else {
+			vscode.commands.executeCommand('setContext', 'extension.isValidFile', false);
+		}
+	} else {
+		vscode.commands.executeCommand('setContext', 'extension.isValidFile', false);
+	}
+}
+
 
 export function activate(context: vscode.ExtensionContext) {
   	console.log('Congratulations, your extension "Switch" is now active!');
+
+	updateIsValidFile();
+
+	context.subscriptions.push(
+		vscode.window.onDidChangeActiveTextEditor(updateIsValidFile)
+	);
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('extension.openSourceAndTest', extensionOpenSourceAndTest)
@@ -278,7 +298,6 @@ export function activate(context: vscode.ExtensionContext) {
   	context.subscriptions.push(
 		vscode.commands.registerCommand('extension.switch', extensionSwitch)
 	);
-
 }
 
 // This method is called when your extension is deactivated
