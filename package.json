@@ -15,7 +15,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -23,44 +25,40 @@
         "command": "extension.switch",
         "title": "Switch between source and test",
         "category": "Switch",
-        "icon": "$(file-code)"
+        "icon": "$(file-code)",
+        "enablement": "extension.isValidFile"
       },
       {
         "command": "extension.openSourceAndTest",
         "title": "Open Source and Test Side by Side",
         "category": "Switch",
-        "icon": "$(book)"
+        "icon": "$(book)",
+        "enablement": "extension.isValidFile"
       }
     ],
     "menus": {
-      "explorer/context": [
-        {
-          "command": "extension.switch",
-          "group": "navigation"
-        },
-        {
-          "command": "extension.openSourceAndTest",
-          "group": "navigation"
-        }
-      ],
       "editor/context": [
         {
           "command": "extension.switch",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "extension.isValidFile"
         },
         {
           "command": "extension.openSourceAndTest",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "extension.isValidFile"
         }
       ],
       "editor/title": [
         {
           "command": "extension.switch",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "extension.isValidFile"
         },
         {
           "command": "extension.openSourceAndTest",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "extension.isValidFile"
         }
       ]
     },
