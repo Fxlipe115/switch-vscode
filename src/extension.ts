@@ -119,11 +119,7 @@ function getCompanionFilePath(editor: vscode.TextEditor) {
 	try {
 		fileInfo = separateFilePath(fullFilePath);
 	} catch (error) {
-		const errorMessage = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(errorMessage);
-		console.error(errorMessage);
-		console.log(errorMessage);
-		return;
+		throw error;
 	}
 	console.log('passed try block');
 	console.log('File Info:', fileInfo); // Print fileInfo
@@ -269,7 +265,20 @@ function updateIsValidFile() {
 	// Check if the focused editor's file name matches the source or test pattern
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
-		const companionFile = getCompanionFilePath(editor);
+		let companionFile: {
+			newFilePath: vscode.Uri;
+			isSourceFile: boolean;
+			isTestFile: boolean;
+		};
+		try {
+			companionFile = getCompanionFilePath(editor);
+		} catch(error) {
+			const errorMessage = error instanceof Error ? error.message : String(error);
+			vscode.commands.executeCommand('setContext', 'extension.isValidFile', false);
+			console.error(errorMessage);
+			console.log(errorMessage);
+			return;
+		}
 		if (companionFile !== undefined) {
 			const { isSourceFile, isTestFile } = companionFile;
 			vscode.commands.executeCommand('setContext', 'extension.isValidFile', isSourceFile || isTestFile);
